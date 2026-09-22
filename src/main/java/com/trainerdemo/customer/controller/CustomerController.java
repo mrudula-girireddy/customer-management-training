@@ -18,7 +18,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}") //API to fetch customer details by ID
     public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable Long id) {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
