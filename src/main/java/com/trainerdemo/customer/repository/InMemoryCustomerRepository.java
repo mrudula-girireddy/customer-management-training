@@ -11,6 +11,7 @@ import java.util.Optional;
 public class InMemoryCustomerRepository implements CustomerRepository {
 
     private final Map<Long, Customer> customers = new HashMap<>();
+    private Long nextId = 4L;
 
     public InMemoryCustomerRepository() {
         customers.put(1L, new Customer(1L, "Shravani Rao", "shravani@example.com", "Charlotte"));
@@ -21,5 +22,15 @@ public class InMemoryCustomerRepository implements CustomerRepository {
     @Override
     public Optional<Customer> findById(Long id) {
         return Optional.ofNullable(customers.get(id));
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        if (customer.getId() == null) {
+            customer.setId(nextId);
+            nextId++;
+        }
+        customers.put(customer.getId(), customer);
+        return customer;
     }
 }
